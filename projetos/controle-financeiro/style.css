@@ -1,0 +1,99 @@
+const movimentacoes = [];
+
+const descricao = document.getElementById("descricao");
+const valor = document.getElementById("valor");
+
+const botaoEntrada = document.getElementById("entrada");
+const botaoSaida = document.getElementById("saida");
+
+const listaMovimentacoes = document.getElementById("lista-movimentacoes");
+const mensagemVazia = document.getElementById("mensagem-vazia");
+const saldo = document.getElementById("saldo");
+
+
+function atualizarSaldo() {
+    let total = 0;
+
+    for (const movimentacao of movimentacoes) {
+        if (movimentacao.tipo === "entrada") {
+            total += movimentacao.valor;
+        } else {
+            total -= movimentacao.valor;
+        }
+    }
+
+    saldo.textContent = `R$ ${total.toFixed(2).replace(".", ",")}`;
+}
+
+
+function adicionarMovimentacao(tipo) {
+
+    const descricaoValor = descricao.value.trim();
+    const valorNumerico = Number(valor.value);
+
+    if (descricaoValor === "") {
+        alert("Digite uma descrição.");
+        return;
+    }
+
+    if (valorNumerico <= 0 || Number.isNaN(valorNumerico)) {
+        alert("Digite um valor válido.");
+        return;
+    }
+
+    const novaMovimentacao = {
+        descricao: descricaoValor,
+        valor: valorNumerico,
+        tipo: tipo
+    };
+
+    movimentacoes.push(novaMovimentacao);
+
+    renderizarMovimentacoes();
+    atualizarSaldo();
+
+    descricao.value = "";
+    valor.value = "";
+
+    descricao.focus();
+}
+
+
+function renderizarMovimentacoes() {
+
+    listaMovimentacoes.innerHTML = "";
+
+    if (movimentacoes.length === 0) {
+        mensagemVazia.style.display = "block";
+        return;
+    }
+
+    mensagemVazia.style.display = "none";
+
+    for (const movimentacao of movimentacoes) {
+
+        const item = document.createElement("li");
+
+        const sinal = movimentacao.tipo === "entrada" ? "+" : "-";
+
+        item.textContent =
+            `${movimentacao.descricao} ${sinal} R$ ${movimentacao.valor
+                .toFixed(2)
+                .replace(".", ",")}`;
+
+        listaMovimentacoes.appendChild(item);
+    }
+}
+
+
+botaoEntrada.addEventListener("click", function () {
+    adicionarMovimentacao("entrada");
+});
+
+
+botaoSaida.addEventListener("click", function () {
+    adicionarMovimentacao("saida");
+});
+
+
+renderizarMovimentacoes();

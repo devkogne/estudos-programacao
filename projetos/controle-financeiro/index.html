@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Controle Financeiro</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header>
+            <h1>Controle Financeiro</h1>
+            <p>Organize suas entradas e despesas.</p>
+        </header>
+
+        <section class="card">
+            <h2>Saldo atual</h2>
+            <p id="saldo">R$ 0,00</p>
+        </section>
+
+        <section class="card">
+            <h2>Adicionar movimentação</h2>
+
+            <div class="formulario">
+
+                <input
+                    type="text"
+                    id="descricao"
+                    placeholder="Descrição"
+                >
+
+                <input
+                    type="number"
+                    id="valor"
+                    placeholder="Valor"
+                    step="0.01"
+                    min="0"
+                >
+
+                <div class="botoes">
+                    <button id="entrada">Adicionar entrada</button>
+                    <button id="saida">Adicionar despesa</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Movimentações</h2>
+
+            <ul id="lista-movimentacoes"></ul>
+
+            <p id="mensagem-vazia">
+                Nenhuma movimentação cadastrada.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
